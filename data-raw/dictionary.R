@@ -81,23 +81,21 @@ remove_duplicates <- function(x) {
 
 x <- sapply(dupes, remove_duplicates)
 
-# now that we have all the files downloaded, bucket them into something sensible. First three
+# now that we have all the files downloaded, bucket them into something sensible. First two
 # letters gives a reasonable spacing although there are a couple of long ones.
 
-regex_macrons <- "āĀēĒīĪōŌūŪ"
 files <- list.files(file.path("inst", "extdata"), pattern = ".rda", full.names = TRUE)
-x <- split(files, stringr::str_extract(tolower(basename(files)), "[[:alpha:]]{1,3}"))
+x <- split(files, stringr::str_extract(tolower(basename(files)), "[[:alpha:]]{1,2}"))
 
 word_from_filename <- function(filename) {
   stringr::str_extract(filename, "(?<=-)[^0-9]+(?=\\.rda$)")
 }
 
 bucket_word <- function(word) {
-  stringr::str_extract(tolower(str_remove_macrons(files)), "[a-z]{1,3}")
+  stringr::str_extract(tolower(str_remove_macrons(files)), "[[:alpha:]]{1,2}")
 }
 
 do_list <- function(x, prefix) {
-  browser()
   words <- word_from_filename(x[[prefix]])
   res <- lapply(x[[prefix]], readRDS)
   names(res) <- words
@@ -105,4 +103,9 @@ do_list <- function(x, prefix) {
   saveRDS(res, outfile)
 }
 
-one <- do_list(x, "a")
+for (l in names(x)) {
+  message(l)
+  do_list(x, l)
+}
+
+# Total data size is about 6-7MB
