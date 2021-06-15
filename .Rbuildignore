@@ -1,0 +1,3 @@
+^inst/extdata/$
+^.*\.Rproj$
+^\.Rproj\.user$

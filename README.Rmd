@@ -1,0 +1,49 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# tereo
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of tereo is to ...
+
+## Installation
+
+You can install the released version of tereo from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+devtools::install_github("lewinfox/tereo")
+```
+
+## Example
+
+Create a dictionary instance:
+
+```{r example}
+library(tereo)
+
+dict <- Dictionary$new()
+
+dict
+```
+
+The `search()` method returns a list of matching entries.
+
+```{r}
+res <- dict$search("whakapapa")
+
+res$whakapapa
+```
